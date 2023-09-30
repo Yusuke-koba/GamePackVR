@@ -7,3 +7,4 @@
 
 「メンバーのGitアクセス確認用」
 ・Yusuke-koba
+・Yusuke-koba
