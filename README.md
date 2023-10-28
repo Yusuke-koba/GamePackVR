@@ -1,11 +1,11 @@
 # GamePackVR
 
-
 有料アセットはAssets/PaidAssetsフォルダの中にいれて共有はしないでください。
 
 【有料アセット一覧】
 
 「メンバーのGitアクセス確認用」
+<<<<<<< HEAD
 ・Yusuke-koba
 ・TakumiYoshikane6438
 ・TianpengJi-sus
@@ -19,3 +19,4 @@
 ・Arata-Meguro
 ・meguroSUS
 ・ryotakwmt
+・sapphimoor
