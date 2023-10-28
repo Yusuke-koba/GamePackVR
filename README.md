@@ -9,3 +9,5 @@
 ・Yusuke-koba hoge
 ・TakumiYoshikane6438
 ・TianpengJi-sus
+・kazukiharavrstudy
+・Sakata Keisuke
