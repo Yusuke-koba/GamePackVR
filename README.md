@@ -12,7 +12,8 @@
 ・hoshino-0197
 ・ryotaK
 ・TatsumaNakano
-・TakumiYoshikane6438  
+・TakumiYoshikane6438
 ・kazukiharavrstudy
 ・Sakata Keisuke
 ・YukaIwamasa
+・Arata-Meguro
