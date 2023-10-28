@@ -6,7 +6,9 @@
 【有料アセット一覧】
 
 「メンバーのGitアクセス確認用」
-・Yusuke-koba
-・Yusuke-koba
-・TakumiYoshikane6438  
-・Arata-Meguro
+・Yusuke-koba hoge
+・TakumiYoshikane6438
+・TianpengJi-sus
+・kazukiharavrstudy
+・Sakata Keisuke
+・meguroSUS
