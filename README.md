@@ -12,3 +12,4 @@
 ・ryotaK
 ・TatsumaNakano
 ・TakumiYoshikane6438  
+・kazukiharavrstudy
