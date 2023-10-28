@@ -6,5 +6,5 @@
 【有料アセット一覧】
 
 「メンバーのGitアクセス確認用」
-・Yusuke-koba
+・Yusuke-koba hoge
 ・TianpengJi-sus
