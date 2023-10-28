@@ -8,3 +8,4 @@
 「メンバーのGitアクセス確認用」
 ・Yusuke-koba hoge
 ・TianpengJi-sus
+・hoshino-0197
