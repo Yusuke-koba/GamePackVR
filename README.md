@@ -17,3 +17,5 @@
 ・Sakata Keisuke
 ・YukaIwamasa
 ・Arata-Meguro
+・meguroSUS
+・ryotakwmt
