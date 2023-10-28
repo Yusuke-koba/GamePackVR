@@ -5,7 +5,6 @@
 【有料アセット一覧】
 
 「メンバーのGitアクセス確認用」
-<<<<<<< HEAD
 ・Yusuke-koba
 ・TakumiYoshikane6438
 ・TianpengJi-sus
@@ -20,3 +19,4 @@
 ・meguroSUS
 ・ryotakwmt
 ・sapphimoor
+・hoshino-0197
