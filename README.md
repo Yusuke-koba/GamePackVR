@@ -7,6 +7,7 @@
 
 「メンバーのGitアクセス確認用」
 ・Yusuke-koba
+・TakumiYoshikane6438
 ・TianpengJi-sus
 ・hoshino-0197
 ・ryotaK
