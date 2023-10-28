@@ -14,3 +14,4 @@
 ・TatsumaNakano
 ・TakumiYoshikane6438  
 ・kazukiharavrstudy
+・Sakata Keisuke
