@@ -9,3 +9,4 @@
 ・Yusuke-koba
 ・Yusuke-koba
 ・TakumiYoshikane6438  
+・kazukiharavrstudy
