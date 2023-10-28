@@ -15,3 +15,4 @@
 - meguroSUS
 - ryotakwmt
 - sapphimoor
+- hoshino-0197
