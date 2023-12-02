@@ -117,9 +117,10 @@ Shader "EarthBuilt-in/MyShader" {
 				//final
 				//half3 finalColor = diffuseColor + specColor;
 				half3 baseColor = (diffuseColor + specColor + atmosphere * fresnelPowered);
-				half3 finalColor = baseColor + emission + clouds;
+				half3 finalColor = baseColor + emission + clouds * max(0.0, NdotL);
 				//return half4(diffuseColor, 1.0);
 				//return half4(specColor, 1.0);
+				//return half4(baseColor, 1.0);
 				return half4(finalColor, 1.0);
 
 
