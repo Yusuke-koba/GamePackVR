@@ -31,10 +31,15 @@ public class ThrowStone : MonoBehaviour
     {
         if (collider.transform.name.Equals("Target"))
         {
+            Debug.Log ("★★★OnTriggerEnter");
             var target = collider.transform.parent.GetComponent<StoneAndTarget>();
             var list = target.GetImpactList(type);
             if (list == null || list.Count == 0)
                 return;
+            Rigidbody stoneRb = gameObject.GetComponent<Rigidbody>();
+            stoneRb.velocity = Vector3.zero;
+            stoneRb.transform.position = stoneRb.transform.position + Vector3.up;
+            stoneRb.AddForce(Vector3.up * 10, ForceMode.Impulse);
             //1ターンで置けるのは1回
             Ones = true;
             //接触した石を変更
