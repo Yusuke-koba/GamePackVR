@@ -3675,9 +3675,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b19a4127827b0e4f84bcc297031709e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OthelloStone: {fileID: 8482709806240879008}
+  ThrowStone: {fileID: 8023657473500723729}
   ThrowStartTarget: {fileID: 1718351411}
-  ThrowTargetStone: {fileID: 0}
+  ThrowTargetList: []
 --- !u!1001 &702345560
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9518,9 +9518,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b19a4127827b0e4f84bcc297031709e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OthelloStone: {fileID: 8482709806240879008}
+  ThrowStone: {fileID: 8023657473500723729}
   ThrowStartTarget: {fileID: 1262520623}
-  ThrowTargetStone: {fileID: 0}
+  ThrowTargetList: []
 --- !u!1001 &1859822164
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10939,12 +10939,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 603d5c1f6622149439caf61b70691216, type: 3}
---- !u!4 &8482709806240879008 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3565118100371398303, guid: 603d5c1f6622149439caf61b70691216,
-    type: 3}
-  m_PrefabInstance: {fileID: 8482709806240879007}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
