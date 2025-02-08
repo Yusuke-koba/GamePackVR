@@ -14,14 +14,7 @@ public class npcai_test : NPCAIBase
     ///４．「TODO：投げる角度を決めよう！」の仕様を決めてコードを書く
     ///５．投擲距離には限界があるので「TODO：投げるために移動しよう！」の仕様を決めてコードを書く
 
-    public override void Move()
-    {
-        Debug.Log ("★★★Move_test");
-        base.Move();
-        //TODO：投げるために移動しよう！
-    }
-
-     public override void Select()
+     protected override void Select()
     {
         Debug.Log ("★★★Select_test");
         base.Select();
@@ -35,7 +28,14 @@ public class npcai_test : NPCAIBase
         Debug.Log ("★★★投げる先決定！："+targetPos);
     }
 
-    public override void Throw()
+    protected override void Move()
+    {
+        Debug.Log ("★★★Move_test");
+        base.Move();
+        //TODO：投げるために移動しよう！
+    }
+
+    protected override void Throw()
     {
         Debug.Log ("★★★Throw_test");
         base.Throw();
