@@ -16,6 +16,8 @@ public class StoneAndTarget : MonoBehaviour
     [SerializeField]
     private GameObject _target;
     [SerializeField]
+    private BoxCollider _foothold; // ★OthelloPlayerに一任)自身の色の石の場合は足場兼リスポーンエリア、自身の色の石でない場合はキルゾーン
+    [SerializeField]
     private BoxCollider[] _checkColliders;
     [SerializeField]
     private StoneAndTarget[] _aroundStoneAndTargetList = new StoneAndTarget[10];
