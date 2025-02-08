@@ -14,11 +14,13 @@ public class NPCAIEditor : Editor
     {
         UnityEditor.EditorGUILayout.LabelField("NPC名："+NPCAIBase.Title());
         base.OnInspectorGUI();
-        if (GUILayout.Button("Move"))
-            NPCAIBase.Move();
-        if (GUILayout.Button("Select"))
-            NPCAIBase.Select();
-        if (GUILayout.Button("Throw"))
-            NPCAIBase.Throw();
+        if (GUILayout.Button("TurnStart"))
+             NPCAIBase.TurnStart();
+        // if (GUILayout.Button("Move"))
+        //     NPCAIBase.Move();
+        // if (GUILayout.Button("Select"))
+        //     NPCAIBase.Select();
+        // if (GUILayout.Button("Throw"))
+        //     NPCAIBase.Throw();
     }
 }
