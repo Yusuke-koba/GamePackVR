@@ -11,16 +11,26 @@ public class NPCAIBase : MonoBehaviour
     [SerializeField]
     protected Transform ThrowStartTarget; //石を投げる開始地点
 
-    public virtual void Move(){
-        Debug.Log ("★★★BaseMove");
+    //メインから呼ばれる
+    public virtual void TurnStart(){
+        Select();
+        Move();
+        Throw();
     }
-    public virtual void Select(){
+
+    protected virtual void Select(){
         Debug.Log ("★★★BaseSelect");
     }
-    public virtual void Throw(){
+
+    protected virtual void Move(){
+        Debug.Log ("★★★BaseMove");
+    }
+
+    protected virtual void Throw(){
         Debug.Log ("★★★BaseThrow");
     }
-    public void GetTargetList(ref List<int> impactCountList){
+
+    protected void GetTargetList(ref List<int> impactCountList){
         List<StoneAndTarget> list = null;
         impactCountList = new List<int>();
         foreach(var t in OthelloGameManager.TargetList){

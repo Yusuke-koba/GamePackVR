@@ -9,13 +9,9 @@ public class npcai_kobayashiY : NPCAIBase
     [SerializeField]
     public List<Transform> ThrowTargetList; //石を投げる先の優先順
 
-    public override void Move(){
-        Debug.Log ("★★★Move_npcai_kobayashiY");
-        base.Move();
-    }
-
-    public override void Select(){
+    protected override void Select(){
         Debug.Log ("★★★Select");
+        base.Select();
         //おける場所の一覧確認
         List<int> impactCountList = new List<int>();
         GetTargetList(ref impactCountList);
@@ -46,7 +42,16 @@ public class npcai_kobayashiY : NPCAIBase
         ThrowTargetList = sortTargetlist;
     }
 
-    public override void Throw(){
+    protected override void Move(){
+        Debug.Log ("★★★Move_npcai_kobayashiY");
+        base.Move();
+        //石を投げる先の優先順から移動できる場所を選定
+        //動ける足場の確認（ジャンプで移動想定：自分を中心に２マス目まで飛べる）
+        //移動先を決定
+        //ジャンプで移動
+    }
+
+    protected override void Throw(){
         Debug.Log ("★★★Throw");
         Debug.Log ("★★★投げる先決定！　優先度１："+ThrowTargetList[0].name);
         ThrowStone.Throw(ThrowStartTarget.position, ThrowTargetList[0].position, 45);
