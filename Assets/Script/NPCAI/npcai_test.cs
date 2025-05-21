@@ -5,6 +5,7 @@ using UnityEngine;
 public class npcai_test : NPCAIBase
 {
     public override string Title() => "NPC";
+    public override string Info() => "NPCの情報";
     Vector3 targetPos = Vector3.zero;
 
     ///NPCAIのつくり方

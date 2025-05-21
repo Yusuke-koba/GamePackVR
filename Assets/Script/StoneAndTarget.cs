@@ -12,6 +12,8 @@ public class StoneAndTarget : MonoBehaviour
     [SerializeField]
     private Type _type = Type.None;
     [SerializeField]
+    private Transform _thisTransform;
+    [SerializeField]
     private GameObject _stone;
     [SerializeField]
     private GameObject _target;
@@ -20,18 +22,19 @@ public class StoneAndTarget : MonoBehaviour
     [SerializeField]
     private BoxCollider[] _checkColliders;
     [SerializeField]
-    private StoneAndTarget[] _aroundStoneAndTargetList = new StoneAndTarget[10];
+    private StoneAndTarget[] _aroundStoneAndTargetList = new StoneAndTarget[10]; //まわりの石の情報
     [SerializeField]
     private LayerMask _stoneLayerMask;
-
+    
+    public Transform thisTransform {get => _thisTransform; private set => _thisTransform = value; }
     public Type StoneType { get => _type; set => _type = value; }
 
     public enum Type
     {
-        WhiteStone,
-        BlackStone,
-        Target,
-        None
+        None = 0,
+        WhiteStone = 1,
+        BlackStone = 2,
+        Target = 3
     }
 
     public void Init()
@@ -41,6 +44,11 @@ public class StoneAndTarget : MonoBehaviour
             //最初に表示しておく石以外を非表示にする
             Change(Type.None);
         }
+        thisTransform = transform;
+    }
+
+    public StoneAndTarget[] GetAroundStoneAndTargetList(){
+        return _aroundStoneAndTargetList;
     }
 
     public void Change(Type type)
@@ -136,4 +144,46 @@ public class StoneAndTarget : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// 範囲指定で周囲のターゲット石を取得する
+    /// range:マス
+    /// </summary>
+    public List<Transform> GetTargetTransformListByRange(int range)
+    {
+        List<Transform> result = new List<Transform>();
+        List<StoneAndTarget> targetList = GetTargetListByRange(range);
+        foreach(var t in targetList)
+            result.Add(t.transform);
+        return result;
+    }
+    /// <summary>
+    /// 範囲指定で周囲のターゲット石を取得する
+    /// range:マス
+    /// </summary>
+    public List<StoneAndTarget> GetTargetListByRange(int range)
+    {
+        if(range < -1) 
+            range = 1;
+
+        // MEMO：コリジョンのスケール＝7.5（１マス）
+        // MEMO：コリジョンのスケール＝12.5（２マス）
+        // MEMO：コリジョンのスケール＝17.5（３マス）
+        float colliderScale = 2.5f + 5f * range;
+
+        List<StoneAndTarget> targetList = new List<StoneAndTarget>();
+        Collider[] hitColliders = Physics.OverlapBox(transform.position, new Vector3(colliderScale,1,colliderScale), Quaternion.identity, _stoneLayerMask);
+        int j = 0;
+        while (j < hitColliders.Length){
+            //ターゲットのGOを取得
+            if (hitColliders[j].name.Equals("Target")){
+                StoneAndTarget stoneAndTarget = hitColliders[j].transform.parent.GetComponent<StoneAndTarget>();
+                if(!targetList.Contains(stoneAndTarget))
+                    targetList.Add(stoneAndTarget);
+            }
+            j++;
+        }
+        return targetList;
+    }
+
 }

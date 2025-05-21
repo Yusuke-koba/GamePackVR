@@ -5,6 +5,7 @@ using UnityEngine;
 public class NPCAIBase : MonoBehaviour
 {
     public virtual string Title() => "";
+    public virtual string Info() => "";
 
     [SerializeField]
     protected ThrowStone ThrowStone; //石
@@ -13,19 +14,44 @@ public class NPCAIBase : MonoBehaviour
 
     //メインから呼ばれる
     public virtual void TurnStart(){
+        Check();
         Select();
         Move();
         Throw();
     }
 
+    /// <summary>
+    /// ターン開始時、足元をチェックして自分の石でない場合、適当なところに飛ぶ
+    /// </summary>
+    protected virtual void Check(){
+        Debug.Log ("★★★Check");
+        Transform footingStone = GetFootingStone();
+        if(footingStone != null && this.GetComponent<OthelloPlayer>().StoneType == footingStone.GetComponent<StoneAndTarget>().StoneType){
+            //自分の石の上に立っている
+        }else{
+            //相手の石の上に立っている
+            //★★★強制移動
+            // this.transform.position = new Vector3(_moveTarget.position.x,this.transform.position.y,_moveTarget.position.z);
+        }
+    }
+
+    /// <summary>
+    /// 投げる場所を選ぶロジックを書く
+    /// </summary>
     protected virtual void Select(){
         Debug.Log ("★★★BaseSelect");
     }
 
+    /// <summary>
+    /// 選んだ所まで移動するロジックを書く
+    /// </summary>
     protected virtual void Move(){
         Debug.Log ("★★★BaseMove");
     }
 
+    /// <summary>
+    /// 移動したところから投げるロジックを書く
+    /// </summary>
     protected virtual void Throw(){
         Debug.Log ("★★★BaseThrow");
     }
@@ -44,5 +70,20 @@ public class NPCAIBase : MonoBehaviour
             impactCountList.Add(count);
             Debug.Log ("★★★奪える数："+count);
         }
+    }
+
+    /// <summary>
+    /// 足元の石のStoneAndTargetを返す
+    /// </summary>
+    protected Transform GetFootingStone()
+    {
+        Ray ray = new Ray(transform.position, transform.up*-1);
+        RaycastHit hit; //レイが衝突したオブジェクト
+        // if (!Physics.Raycast(ray, out hit, 2f, _stoneLayerMask))
+        //     return null;
+        // if (!hit.collider.name.Equals("Stone"))
+        //     return null;
+        //  return hit.collider.transform.parent;
+        return null;
     }
 }
