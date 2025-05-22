@@ -11,6 +11,10 @@ public class NPCAIBase : MonoBehaviour
     protected ThrowStone ThrowStone; //石
     [SerializeField]
     protected Transform ThrowStartTarget; //石を投げる開始地点
+    [SerializeField]
+    protected Transform _throwTarget; //石を投げる先
+    [SerializeField]
+    protected LayerMask _stoneLayerMask;
 
     //メインから呼ばれる
     public virtual void TurnStart(){
@@ -26,12 +30,19 @@ public class NPCAIBase : MonoBehaviour
     protected virtual void Check(){
         Debug.Log ("★★★Check");
         Transform footingStone = GetFootingStone();
-        if(footingStone != null && this.GetComponent<OthelloPlayer>().StoneType == footingStone.GetComponent<StoneAndTarget>().StoneType){
+        if(footingStone != null && this.GetComponent<OthelloPlayer>().StoneType == footingStone.GetComponent<StoneAndTarget>().StoneType)
+        {
             //自分の石の上に立っている
-        }else{
-            //相手の石の上に立っている
-            //★★★強制移動
-            // this.transform.position = new Vector3(_moveTarget.position.x,this.transform.position.y,_moveTarget.position.z);
+        }
+        else
+        {
+            //自分の石以外の所に立っているので強制移動
+            List<Transform> stones = new List<Transform>();
+            if(this.GetComponent<OthelloPlayer>().StoneType == StoneAndTarget.Type.BlackStone)
+                stones = OthelloGameManager.BlackStoneT;
+            else
+                stones = OthelloGameManager.WhiteStoneT;
+            this.transform.position = new Vector3(stones[0].position.x,this.transform.position.y,stones[0].position.z);
         }
     }
 
@@ -54,6 +65,7 @@ public class NPCAIBase : MonoBehaviour
     /// </summary>
     protected virtual void Throw(){
         Debug.Log ("★★★BaseThrow");
+        ThrowStone.Throw(ThrowStartTarget.position, _throwTarget.position, 45);
     }
 
     protected void GetTargetList(ref List<int> impactCountList){
@@ -79,11 +91,10 @@ public class NPCAIBase : MonoBehaviour
     {
         Ray ray = new Ray(transform.position, transform.up*-1);
         RaycastHit hit; //レイが衝突したオブジェクト
-        // if (!Physics.Raycast(ray, out hit, 2f, _stoneLayerMask))
-        //     return null;
-        // if (!hit.collider.name.Equals("Stone"))
-        //     return null;
-        //  return hit.collider.transform.parent;
+        if (!Physics.Raycast(ray, out hit, 2f, _stoneLayerMask))
+            return null;
+        if (hit.collider.name.Equals("Stone"))
+            return hit.collider.transform.parent;
         return null;
     }
 }

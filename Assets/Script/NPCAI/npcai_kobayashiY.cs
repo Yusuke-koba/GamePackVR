@@ -7,12 +7,9 @@ public class npcai_kobayashiY : NPCAIBase
     public override string Title() => "kobaNPC";
     public override string Info() => "NPCの情報\n石が沢山取れる場所を狙う。移動は隣り合う足場";
 
-    [SerializeField]
-    private Transform _throwTarget; //石を投げる先
+
     [SerializeField]
     private Transform _moveTarget; //移動先
-    [SerializeField]
-    private LayerMask _stoneLayerMask;
 
     /// <summary>
     /// 投げる場所を選ぶ
