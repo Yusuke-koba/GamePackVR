@@ -30,9 +30,11 @@ public class OthelloGameManager : MonoBehaviour
     //残りの数
     public static int RemainingCount { get; private set; } = 0;
     //白の数
-    public static int WhiteStoneCount { get; private set; } = 0;
+    public static int WhiteStoneCount { get => WhiteStoneT.Count;}
+    public static List<Transform> WhiteStoneT{get; private set;} = new List<Transform>();
     //黒の数
-    public static int BlackStoneCount { get; private set; } = 0;
+    public static int BlackStoneCount { get => BlackStoneT.Count;}
+    public static List<Transform> BlackStoneT{get; private set;} = new List<Transform>();
 
     public delegate void CallbackGameOver();
     public static event CallbackGameOver onGameOver;
@@ -117,8 +119,9 @@ public class OthelloGameManager : MonoBehaviour
     private void SetBoardCount(string boardLog = "")
     {
         RemainingCount = 0;
-        WhiteStoneCount = 0;
-        BlackStoneCount = 0;
+        BlackStoneT = new List<Transform>();
+        WhiteStoneT = new List<Transform>();
+
         foreach (Transform t in _stones)
         {
             var stone = t.GetComponent<StoneAndTarget>();
@@ -130,9 +133,9 @@ public class OthelloGameManager : MonoBehaviour
             else if (stone.StoneType == StoneAndTarget.Type.None)
                 RemainingCount++;
             else if (stone.StoneType == StoneAndTarget.Type.BlackStone)
-                BlackStoneCount++;
+                BlackStoneT.Add(t);
             else if (stone.StoneType == StoneAndTarget.Type.WhiteStone)
-                WhiteStoneCount++;
+                WhiteStoneT.Add(t);
         }
     }
 
