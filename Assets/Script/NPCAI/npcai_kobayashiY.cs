@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class npcai_kobayashiY : NPCAIBase
+public class Npcai_kobayashiY : NPCAIBase
 {
     public override string Title() => "kobaNPC";
     public override string Info() => "NPCの情報\n石が沢山取れる場所を狙う。移動は隣り合う足場";
 
 
-    [SerializeField]
     private Transform _moveTarget; //移動先
 
     /// <summary>
@@ -84,7 +83,7 @@ Debug.Log ("★★★maxStone="+maxStone);
 
         //移動する場所と投げる場所決定
         Debug.Log ("★★★STONE===========");
-        Debug.Log ("★★★更新：番号="+keepNo+", 移動先="+_moveTarget.name+", 移動先投げ先="+_throwTarget.name);
+        Debug.Log ("★★★更新...決定：番号="+keepNo+", 移動先="+_moveTarget.name+", 移動先投げ先="+_throwTarget.name);
     }
 
     /// <summary>
@@ -98,7 +97,7 @@ Debug.Log ("★★★maxStone="+maxStone);
             // 足元にレイを飛ばす
             Ray ray = new Ray(transform.position, transform.up*-1);
             RaycastHit hit; //レイが衝突したオブジェクト
-            if (!Physics.Raycast(ray, out hit, 2f, _stoneLayerMask))
+            if (!Physics.Raycast(ray, out hit, 2f))
                 return list;
             if (!hit.collider.name.Equals("Stone"))
                 return list;
@@ -127,10 +126,10 @@ Debug.Log ("★★★maxStone="+maxStone);
     /// </summary>
     private bool GetHighPriority(ref int keepNo,ref Transform target,List<Transform> targetList ,List<Transform> criteriaList){
         int no = 0; // criteriaListの番号をカウント（小さいほど優先度が高い）
-        Debug.Log ("★★★targetList.Length="+targetList.Count+":::criteriaList.Length="+criteriaList.Count);
+        //Debug.Log ("★★★targetList.Length="+targetList.Count+":::criteriaList.Length="+criteriaList.Count);
         foreach(var t in criteriaList){
             foreach(var t2 in targetList){
-                // Debug.Log ("★★★"+t+":比較:"+t2);
+                Debug.Log ("★★★"+t.name+":比較:"+t2.name);
                 if(t == t2){
                     target = t2;
                     keepNo = no;
@@ -147,7 +146,6 @@ Debug.Log ("★★★maxStone="+maxStone);
     /// 　・Selectで決めた移動先に移動する
     /// </summary>
     protected override void Move(){
-        Debug.Log ("★★★Move_npcai_kobayashiY");
         base.Move();
         // bool isMove = true;
         // while(isMove){

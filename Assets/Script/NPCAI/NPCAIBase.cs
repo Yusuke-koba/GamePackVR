@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class NPCAIBase : MonoBehaviour
 {
-    public virtual string Title() => "";
-    public virtual string Info() => "";
+    public virtual string Title() => "NPCAIBase";
+    public virtual string Info() => "NPCAIBase";
 
-    [SerializeField]
     protected ThrowStone ThrowStone; //石
-    [SerializeField]
     protected Transform ThrowStartTarget; //石を投げる開始地点
-    [SerializeField]
     protected Transform _throwTarget; //石を投げる先
-    [SerializeField]
-    protected LayerMask _stoneLayerMask;
+    // [SerializeField]
+    // protected LayerMask _stoneLayerMask;
+
+    public void Setup(){
+        ThrowStone = GameObject.Find("ThrowStone").GetComponent<ThrowStone>();
+        ThrowStartTarget = transform.Find("ThrowStartTarget");
+    }
 
     //メインから呼ばれる
     public virtual void TurnStart(){
@@ -91,7 +93,7 @@ public class NPCAIBase : MonoBehaviour
     {
         Ray ray = new Ray(transform.position, transform.up*-1);
         RaycastHit hit; //レイが衝突したオブジェクト
-        if (!Physics.Raycast(ray, out hit, 2f, _stoneLayerMask))
+        if (!Physics.Raycast(ray, out hit, 2f))
             return null;
         if (hit.collider.name.Equals("Stone"))
             return hit.collider.transform.parent;

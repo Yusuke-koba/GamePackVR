@@ -169,10 +169,10 @@ public class StoneAndTarget : MonoBehaviour
         // MEMO：コリジョンのスケール＝7.5（１マス）
         // MEMO：コリジョンのスケール＝12.5（２マス）
         // MEMO：コリジョンのスケール＝17.5（３マス）
-        float colliderScale = 2.5f + 5f * range;
+        float halfExtent = (2.5f + 5f * range)/2; //OverlapBoxは中心からの長さを指定
 
         List<StoneAndTarget> targetList = new List<StoneAndTarget>();
-        Collider[] hitColliders = Physics.OverlapBox(transform.position, new Vector3(colliderScale,1,colliderScale), Quaternion.identity, _stoneLayerMask);
+        Collider[] hitColliders = Physics.OverlapBox(transform.position, new Vector3(halfExtent,1,halfExtent), Quaternion.identity, _stoneLayerMask);
         int j = 0;
         while (j < hitColliders.Length){
             //ターゲットのGOを取得

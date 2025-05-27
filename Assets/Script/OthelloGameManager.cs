@@ -53,6 +53,8 @@ public class OthelloGameManager : MonoBehaviour
         ChangeTurn();
         _throwStone.ChangeTurnEvent = () => ChangeTurn();
         _timerUI.ChangeTurnEvent = () => ChangeTurn();
+        _player1.GetComponent<NPCAIBase>().Setup();
+        _player2.GetComponent<NPCAIBase>().Setup();
         _intervalTurnChange = INTERVAL_TURN_CHANGE;
     }
 
