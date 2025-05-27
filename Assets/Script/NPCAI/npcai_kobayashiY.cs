@@ -159,7 +159,7 @@ Debug.Log ("★★★maxStone="+maxStone);
     }
 
     protected override void Throw(){
-        Debug.Log ("★★★Throw");
+        base.Throw();
         Debug.Log ("★★★投げる先決定！："+_throwTarget.name);
         //Debug.Log ("★★★Throw//☆☆☆一旦投げない");
         //return; //☆☆☆一旦投げない
