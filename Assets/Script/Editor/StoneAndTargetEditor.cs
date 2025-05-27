@@ -21,6 +21,11 @@ public class StoneAndTargetEditor : Editor
             stoneAndTarget.Change(StoneAndTarget.Type.None);
         if (GUILayout.Button("SetAroundStoneAndTargetList"))
             stoneAndTarget.SetAroundStoneAndTargetList();
+        if (GUILayout.Button("TEST_GetTargetListByRange=3")){
+            var ts = stoneAndTarget.GetTargetListByRange(3);
+            foreach(var t in ts)
+                Debug.Log ("★★★"+t.name);
+        }
     }
 
 }

@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class npcai_test : NPCAIBase
+public class Npcai_test : NPCAIBase
 {
     public override string Title() => "NPC";
     public override string Info() => "NPCの情報";
     Vector3 targetPos = Vector3.zero;
 
     ///NPCAIのつくり方
-    ///１．npcai_test.csを複製して、npcai_(AIタイトル)
+    ///１．Npcai_test.csを複製して、npcai_(AIタイトル)
     ///２．Title() => "NPC";を変更 ※Inspecter上や対戦相手一覧に表示される
     ///３．「TODO：投げる先を決めよう！」の仕様を決めてコードを書く
     ///４．「TODO：投げる角度を決めよう！」の仕様を決めてコードを書く
