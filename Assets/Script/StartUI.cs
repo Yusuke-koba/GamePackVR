@@ -28,7 +28,7 @@ public class StartUI : MonoBehaviour
     {
         None,
         Player,
-        NPCAIBase,
+        Npcai_test,
         Npcai_kobayashiY,
     }
 
@@ -46,8 +46,9 @@ public class StartUI : MonoBehaviour
         var obj = new GameObject("NPCAIComponentList");
         obj.transform.parent = transform;
         _npcAIList = new NPCAIBase[2];
-        _npcAIList[0]=(NPCAIBase)obj.AddComponent(typeof(NPCAIBase));
+        _npcAIList[0]=(NPCAIBase)obj.AddComponent(typeof(Npcai_test));
         _npcAIList[1]=(NPCAIBase)obj.AddComponent(typeof(Npcai_kobayashiY));
+        //TODO：NPC選択用UIに表示されるようにしよう！
     }
 
     /// <summary>
@@ -61,7 +62,7 @@ public class StartUI : MonoBehaviour
         CreatePlayerNPCAISelectButton(_npcAIList[1].Title(),NPCAIType.Npcai_kobayashiY,contentGo,isPlayerA);
 
 
-        CreatePlayerNPCAISelectButton(_npcAIList[0].Title(),NPCAIType.NPCAIBase,contentGo,isPlayerA);
+        CreatePlayerNPCAISelectButton(_npcAIList[0].Title(),NPCAIType.Npcai_test,contentGo,isPlayerA);
         contentGo.GetComponent<RectTransform>().sizeDelta = new Vector2(0, contentGo.transform.childCount * ButtonHeightSelectUI);
     }
 
@@ -108,25 +109,14 @@ public class StartUI : MonoBehaviour
             case NPCAIType.Player:
                 //プレイヤー
                 break;
+            case NPCAIType.Npcai_test:
+                player.gameObject.AddComponent(typeof(Npcai_test));
+                break;
             case NPCAIType.Npcai_kobayashiY:
                 player.gameObject.AddComponent(typeof(Npcai_kobayashiY));
                 break;
-            case NPCAIType.NPCAIBase:
-                player.gameObject.AddComponent(typeof(NPCAIBase));
-                break;
+            //TODO：NPCにコントローラーがアタッチされるようにしよう！
         }
-    }
-
-    public void PlayerVSNPCMode(){
-
-    }
-
-    public void NPCVSNPCMode(){
-
-    }
-
-    private void SetNPCAI(){
-
     }
 
     /// <summary>

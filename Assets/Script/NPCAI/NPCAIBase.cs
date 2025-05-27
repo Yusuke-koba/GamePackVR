@@ -67,7 +67,7 @@ public class NPCAIBase : MonoBehaviour
     /// </summary>
     protected virtual void Throw(){
         Debug.Log ("★★★BaseThrow");
-        ThrowStone.Throw(ThrowStartTarget.position, _throwTarget.position, 45);
+        // ThrowStone.Throw(ThrowStartTarget.position, _throwTarget.position, 45);
     }
 
     protected void GetTargetList(ref List<int> impactCountList){

@@ -6,27 +6,29 @@ public class Npcai_test : NPCAIBase
 {
     public override string Title() => "NPC";
     public override string Info() => "NPCの情報";
-    Vector3 targetPos = Vector3.zero;
+    Vector3 _targetPos = Vector3.zero;
 
     ///NPCAIのつくり方
+    ///実装前半編「スクリプトを用意して、StartUIに自分のNPCAIを表示しよう」
     ///１．Npcai_test.csを複製して、npcai_(AIタイトル)
     ///２．Title() => "NPC";を変更 ※Inspecter上や対戦相手一覧に表示される
-    ///３．「TODO：投げる先を決めよう！」の仕様を決めてコードを書く
-    ///４．「TODO：投げる角度を決めよう！」の仕様を決めてコードを書く
-    ///５．投擲距離には限界があるので「TODO：投げるために移動しよう！」の仕様を決めてコードを書く
+    ///３．StartUI.csに追加を行う「TODO：NPC選択用UIに表示されるようにしよう！」
+    ///４．StartUI.csに追加を行う「TODO：NPCにコントローラーがアタッチされるようにしよう！」
+    ///実装後半編「NPCAIを作りこんでいこう」
+    ///１．「TODO：投げる先を決めよう！」の仕様を決めてコードを書く
+    ///２．「TODO：投げよう！」の仕様を決めてコードを書く
+    ///３．投擲距離には限界があるので「TODO：投げるために移動しよう！」の仕様を決めてコードを書く
 
      protected override void Select()
     {
         Debug.Log ("★★★Select_test");
         base.Select();
         List<Transform> TargetList = OthelloGameManager.TargetList; //置ける場所
-        List<int> impactCountList = new List<int>();//置ける場所で取れる石の個数
-        GetTargetList(ref impactCountList);
 
         //TODO：投げる先を決めよう！
-        targetPos = TargetList[0].transform.position;
+        _throwTarget = TargetList[0];
         Debug.Log ("★★★"+TargetList[0].transform.name);
-        Debug.Log ("★★★投げる先決定！："+targetPos);
+        Debug.Log ("★★★投げる先決定！："+_throwTarget.name);
     }
 
     protected override void Move()
@@ -40,9 +42,9 @@ public class Npcai_test : NPCAIBase
     {
         Debug.Log ("★★★Throw_test");
         base.Throw();
-        //TODO：投げる角度を決めよう！
+        //TODO：投げよう！
+        //Throwで石を投げます。
         float angle = 45;
-        //石を投げます。
-        ThrowStone.Throw(ThrowStartTarget.position, targetPos, angle);
+        ThrowStone.Throw(ThrowStartTarget.position, _throwTarget.position, angle);
     }
 }
