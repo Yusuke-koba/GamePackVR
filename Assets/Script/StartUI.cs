@@ -28,13 +28,22 @@ public class StartUI : MonoBehaviour
     {
         None,
         Player,
+        //TODO：識別用の型を登録しよう！
         Npcai_test,
         Npcai_kobayashiY,
+        
+        //----------------------------------------
     }
 
     void Start()
     {
         SetupNPCAI();
+        Button buttonA = _playerASelectButton.GetComponent<Button>();
+        buttonA.onClick.AddListener(() => _playerASelectButton.SetActive(false));
+        buttonA.onClick.AddListener(() => _playerASelectUI.gameObject.SetActive(true));
+        Button buttonB = _playerBSelectButton.GetComponent<Button>();
+        buttonB.onClick.AddListener(() => _playerBSelectButton.SetActive(false));
+        buttonB.onClick.AddListener(() => _playerBSelectUI.gameObject.SetActive(true));
         //左側の選択は_PlayerA（人orNPC）
         CreateNPCAISelectButton(_playerASelectUI, true);
         //右側の選択は_playerB（NPC）
@@ -46,9 +55,11 @@ public class StartUI : MonoBehaviour
         var obj = new GameObject("NPCAIComponentList");
         obj.transform.parent = transform;
         _npcAIList = new NPCAIBase[2];
+        //TODO：NPC選択用UIに表示されるようにしよう！（１）
         _npcAIList[0]=(NPCAIBase)obj.AddComponent(typeof(Npcai_test));
         _npcAIList[1]=(NPCAIBase)obj.AddComponent(typeof(Npcai_kobayashiY));
-        //TODO：NPC選択用UIに表示されるようにしよう！
+        
+        //----------------------------------------
     }
 
     /// <summary>
@@ -59,11 +70,16 @@ public class StartUI : MonoBehaviour
         GameObject contentGo = playerSelectUI.Find("Viewport/Content").gameObject;
         if(isPlayerA)
             CreatePlayerNPCAISelectButton("Player",NPCAIType.None,contentGo,isPlayerA);
+        //TODO：NPC選択用UIに表示されるようにしよう！（２） 
         CreatePlayerNPCAISelectButton(_npcAIList[1].Title(),NPCAIType.Npcai_kobayashiY,contentGo,isPlayerA);
 
 
         CreatePlayerNPCAISelectButton(_npcAIList[0].Title(),NPCAIType.Npcai_test,contentGo,isPlayerA);
-        contentGo.GetComponent<RectTransform>().sizeDelta = new Vector2(0, contentGo.transform.childCount * ButtonHeightSelectUI);
+        //----------------------------------------
+        var height = contentGo.transform.childCount * ButtonHeightSelectUI;
+        contentGo.GetComponent<RectTransform>().sizeDelta = new Vector2(0, height);
+        if(height >= 1000) height = 1000;
+        playerSelectUI.GetComponent<RectTransform>().sizeDelta = new Vector2(playerSelectUI.GetComponent<RectTransform>().sizeDelta.x, height);
     }
 
     /// <summary>
@@ -109,13 +125,14 @@ public class StartUI : MonoBehaviour
             case NPCAIType.Player:
                 //プレイヤー
                 break;
+            //TODO：NPCにコントローラーがアタッチされるようにしよう！
             case NPCAIType.Npcai_test:
                 player.gameObject.AddComponent(typeof(Npcai_test));
                 break;
             case NPCAIType.Npcai_kobayashiY:
                 player.gameObject.AddComponent(typeof(Npcai_kobayashiY));
                 break;
-            //TODO：NPCにコントローラーがアタッチされるようにしよう！
+            //----------------------------------------------------
         }
     }
 
@@ -125,7 +142,6 @@ public class StartUI : MonoBehaviour
     private GameObject CreatePlayerNPCAISelectButton(string name, NPCAIType aiType, GameObject targetPanel, bool isPlayerA)
     {
         GameObject buttonPrefab = (GameObject)Resources.Load("Prefabs/ButtonPlayerNPCAISelect");
-        //追加
         buttonPrefab = (GameObject)Instantiate(buttonPrefab, targetPanel.transform.position, Quaternion.identity);
         buttonPrefab.transform.SetParent(targetPanel.transform);
         buttonPrefab.transform.localScale = new Vector3(1, 1, 1);
