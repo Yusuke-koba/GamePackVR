@@ -20,6 +20,7 @@ public class Timer : MonoBehaviour
     {
         _countdownSeconds = TIME;
         _isStop = false;
+        gameObject.SetActive(true);
         if (isBlackTurn)
         {
             TimerText.color = Color.black;
@@ -35,8 +36,10 @@ public class Timer : MonoBehaviour
 
     private void Update()
     {
-        if (_isStop)
+        if (_isStop){
+            gameObject.SetActive(false);
             return;
+        }
         _countdownSeconds -= Time.deltaTime;
         var span = new TimeSpan(0, 0, (int)_countdownSeconds);
         TimerText.text = span.ToString(@"mm\:ss");
