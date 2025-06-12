@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4249909857749146097}
   - component: {fileID: 2509302235903784539}
   m_Layer: 0
-  m_Name: "1_PlayerA\u306E\u524D (1)"
+  m_Name: "0_PlayerA\u306E\u524D (1)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,6 +130,7 @@ Transform:
   - {fileID: 4136099313882945221}
   - {fileID: 2261907038297171776}
   - {fileID: 525609635611808725}
+  - {fileID: 4014357658095787151}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2764304622158473181
@@ -167,7 +168,7 @@ GameObject:
   - component: {fileID: 1757040921232365304}
   - component: {fileID: 3312021155837308677}
   m_Layer: 0
-  m_Name: "3_\u5168\u4F53\u3092\u4FEF\u77B0\u3059\u308B\u8996\u70B9"
+  m_Name: "2_\u5168\u4F53\u3092\u4FEF\u77B0\u3059\u308B\u8996\u70B9"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -264,7 +265,7 @@ GameObject:
   - component: {fileID: 4373372280864992774}
   - component: {fileID: 3713071588453920199}
   m_Layer: 0
-  m_Name: "1_PlayerA\u306E\u524D"
+  m_Name: "0_PlayerA\u306E\u524D"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -348,6 +349,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NextPoint: {fileID: 2509302235903784539}
+--- !u!1 &3860118149820859228
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4014357658095787151}
+  m_Layer: 0
+  m_Name: PCCameraBestPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4014357658095787151
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3860118149820859228}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 9.37, y: 9.37, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9101807645824330547}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &3934791183840491142
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,7 +489,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 183
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: ee3adb41f9604de4f967f88ef428514c, type: 2}
   m_TargetDisplay: 0
@@ -494,7 +526,7 @@ GameObject:
   - component: {fileID: 2737007585161158213}
   - component: {fileID: 830846723388642632}
   m_Layer: 0
-  m_Name: "2_PlayerB\u306E\u524D (1)"
+  m_Name: "1_PlayerB\u306E\u524D (1)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -591,7 +623,7 @@ GameObject:
   - component: {fileID: 6866607750240676427}
   - component: {fileID: 9200068879256086737}
   m_Layer: 0
-  m_Name: "2_PlayerB\u306E\u524D"
+  m_Name: "1_PlayerB\u306E\u524D"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -688,7 +720,7 @@ GameObject:
   - component: {fileID: 8014061209837333450}
   - component: {fileID: 2157363457513164857}
   m_Layer: 0
-  m_Name: "4_\u771F\u4E0A\u304B\u3089"
+  m_Name: "3_\u771F\u4E0A\u304B\u3089"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -784,7 +816,7 @@ GameObject:
   - component: {fileID: 1329358258195887147}
   - component: {fileID: 7786765218494667276}
   - component: {fileID: 5325954564529777743}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
