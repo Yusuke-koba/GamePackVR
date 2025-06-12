@@ -4,14 +4,21 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using TMPro;
 
 public class OthelloGameManager : MonoBehaviour
 {
     private const float INTERVAL_TURN_CHANGE = 3.0f; //秒
     [SerializeField]
+    private Transform _pcCamera;
+    [SerializeField]
     private Transform _stones;
     [SerializeField]
     private ThrowStone _throwStone;
+    [SerializeField]
+    private WindowMonitor _windowMonitor;
+    [SerializeField]
+    private TextMeshPro _monitorText;
     [SerializeField]
     private bool _isTurnBlack;
     [SerializeField]
@@ -45,7 +52,8 @@ public class OthelloGameManager : MonoBehaviour
     {
         AllSetAroundStoneAndTargetList();
         _turn = 0;
-        _isTurnBlack = false; //黒先手で始める
+        //_isTurnBlack = false; //黒先手で始める
+        _isTurnBlack = GetRandBool(); //ランダム
         foreach (Transform t in _stones)
         {
             t.GetComponent<StoneAndTarget>().Init();
@@ -55,7 +63,12 @@ public class OthelloGameManager : MonoBehaviour
         _timerUI.ChangeTurnEvent = () => ChangeTurn();
         _player1.GetComponent<NPCAIBase>().Setup();
         _player2.GetComponent<NPCAIBase>().Setup();
+
+        //INTERVAL_TURN_CHANGE秒経過すると開始する ※スタート演出内でスタート演出分の時間をとる
         _intervalTurnChange = INTERVAL_TURN_CHANGE;
+
+        //スタート演出をしてから開始する
+        StartCoroutine(StartPerformanceEvent());
     }
 
     void Update(){
@@ -67,11 +80,13 @@ public class OthelloGameManager : MonoBehaviour
             {
                 Debug.Log ("★★★P1");
                 _player1.GetComponent<NPCAIBase>().TurnStart();
+                _monitorText.text = _player1.GetComponent<NPCAIBase>().Title();
             }
             else
             {
                 Debug.Log ("★★★P2");
                 _player2.GetComponent<NPCAIBase>().TurnStart();
+                _monitorText.text = _player2.GetComponent<NPCAIBase>().Title();
             }
             _intervalTurnChange = INTERVAL_TURN_CHANGE;
         }
@@ -279,5 +294,48 @@ public class OthelloGameManager : MonoBehaviour
         {
             Debug.Log("★★★Error:GameLogLoad:" + e.Message);
         }
+    }
+
+    private bool GetRandBool()
+    {
+        if (UnityEngine.Random.Range(0,2) == 0) //※出力に２は含まれない
+            return true;
+        return false;
+    }
+
+    private IEnumerator StartPerformanceEvent()
+    {
+        //設定したスタート演出時間が経過すると開始
+        _intervalTurnChange = 6;
+        _timerUI.Stop();
+
+        //PCのカメラをモニタが見えるところへ移動、後に元に戻す
+        var keepPCCameraPos = _pcCamera.position;
+        var keepPCCameraRot = _pcCamera.localRotation;
+        Camera pcCamera = _pcCamera.gameObject.GetComponent<Camera>();
+        var keepPCCameraOrthographicSize  = pcCamera.orthographicSize;
+        var bestPosTarget = _windowMonitor.transform.Find("PCCameraBestPosition");
+        pcCamera.orthographicSize = 3;
+        _pcCamera.transform.position = bestPosTarget.position;
+        _pcCamera.transform.localRotation = bestPosTarget.localRotation;
+
+        //P1登場＋カメラ演出をモニタに投影
+        _windowMonitor.CameraStart(0);
+        _monitorText.text = _player1.GetComponent<NPCAIBase>().Title();
+        yield return new WaitForSeconds(3);
+        //P2登場＋カメラ演出をモニタに投影
+        _windowMonitor.CameraStart(1);
+        _monitorText.text = _player2.GetComponent<NPCAIBase>().Title();
+        yield return new WaitForSeconds(3);
+
+
+        //演出終了、ゲーム開始=========
+        //モニターのカメラを真上からのところに持っていく
+        _windowMonitor.CameraStart(3);
+        //PCカメラをもとに戻す　※一旦戻さない
+        // pcCamera.orthographicSize = keepPCCameraOrthographicSize;
+        // _pcCamera.transform.position = keepPCCameraPos;
+        // _pcCamera.transform.localRotation = keepPCCameraRot;
+        _timerUI.Restart(_isTurnBlack);
     }
 }
