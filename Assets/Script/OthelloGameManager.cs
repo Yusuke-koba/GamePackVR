@@ -250,7 +250,6 @@ public class OthelloGameManager : MonoBehaviour
             }
             gameLogData.BoardLog = sb.ToString();
             Debug.Log ("SAVE★★★:::"+JsonUtility.ToJson(gameLogData));
-            //★★★TODO保存先のパスを作る
             _path = Path.Combine(new string[2] { Application.persistentDataPath, "GameLogFile.log" });
             Debug.Log ("SAVEPath★★★:::"+_path);
             File.AppendAllText(_path, JsonUtility.ToJson(gameLogData)+"|"+Environment.NewLine);
