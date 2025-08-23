@@ -26,6 +26,7 @@ public class Npcai_Kanon : NPCAIBase
 
         // 下記を使うこと【★ルール：自分から３マス範囲内に投擲】
         var footingStones = GetFootingStones(null, new List<Transform>());
+        var beforeTarget = _throwTarget;
         foreach (var footingStoneT in footingStones)
         {
             var targetList = footingStoneT.GetComponent<StoneAndTarget>().GetTargetTransformListByRange(3);
@@ -42,6 +43,14 @@ public class Npcai_Kanon : NPCAIBase
                 }
             }
         }
+
+        if (beforeTarget.name.Equals(_throwTarget.name))
+        {
+            Debug.Log("★★★投げる先が前ターンと同じ＝投げる場所がない");
+            _moveTarget = null;
+            return;
+        }
+
         //TODO：投げる先を決めよう！
         Debug.Log("★★★移動先決定！：" + _moveTarget.name);
         Debug.Log("★★★投げる先決定！：" + _throwTarget.name);
@@ -53,6 +62,8 @@ public class Npcai_Kanon : NPCAIBase
         base.Move();
         //TODO：投げるために移動しよう！
         //★★★強制移動
+        if (_moveTarget == null)
+            return;
         this.transform.position = new Vector3(_moveTarget.position.x, this.transform.position.y, _moveTarget.position.z);
     }
 
