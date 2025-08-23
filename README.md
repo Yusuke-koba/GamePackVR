@@ -12,3 +12,4 @@
 ・ryotaK
 ・TatsumaNakano
 ・naoya0221x
+・Takahiro_Namazuta
