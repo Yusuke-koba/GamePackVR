@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Npcai_test : NPCAIBase
+public class npcai_Kanon : NPCAIBase
 {
-    public override string Title() => "NPC";
-    public override string Info() => "NPCの情報";
+    public override string Title() => "Kanon";
+    public override string Info() => "隅っこ大好き型、箱や隅に入りたがる猫の習性から、四隅や端にばかり石を置きたがる。";
     Vector3 _targetPos = Vector3.zero;
 
     ///NPCAIのつくり方
@@ -18,20 +18,18 @@ public class Npcai_test : NPCAIBase
     ///１．「TODO：投げる先を決めよう！」の仕様を決めてコードを書く
     ///２．「TODO：投げよう！」の仕様を決めてコードを書く
     ///３．投擲距離には限界があるので「TODO：投げるために移動しよう！」の仕様を決めてコードを書く
-    ///  ★ルール：自分から３マス範囲内に投擲
 
      protected override void Select()
     {
         Debug.Log ("★★★Select_test");
         base.Select();
         List<Transform> TargetList = OthelloGameManager.TargetList; //置ける場所
+        //おける場所の位置座標を取得
+        //四隅に近い所を優先する
 
-        // 下記を使うこと【★ルール：自分から３マス範囲内に投擲】
-        // List<Transform> footingStones = GetFootingStones(null, new List<Transform>());
-        // foreach(var footingStoneT in footingStones){
-        //     List<Transform> targetList = footingStoneT.GetComponent<StoneAndTarget>().GetTargetTransformListByRange(3);
-        // }
-        
+        // ★ルール：３マス範囲内のターゲット石リストを取得
+        List<Transform> targetList = footingStoneT.GetComponent<StoneAndTarget>().GetTargetTransformListByRange(3);
+
         //TODO：投げる先を決めよう！
         _throwTarget = TargetList[0];
         Debug.Log ("★★★"+TargetList[0].transform.name);
