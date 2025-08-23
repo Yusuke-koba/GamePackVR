@@ -87,40 +87,6 @@ Debug.Log ("★★★maxStone="+maxStone);
     }
 
     /// <summary>
-    /// 移動できる石のリストを取得
-    /// 　・移動は隣が自分の石の場合移動できる
-    /// </summary>
-    private List<Transform> GetFootingStones(Transform stoneAndTarget, List<Transform> list){
-        //　今いる場所から「移動できる足場」の確認
-        //足場を設定していない場合、自身から下にレイを飛ばし足場を設定する
-        if(stoneAndTarget == null){
-            // 足元にレイを飛ばす
-            Ray ray = new Ray(transform.position, transform.up*-1);
-            RaycastHit hit; //レイが衝突したオブジェクト
-            if (!Physics.Raycast(ray, out hit, 2f))
-                return list;
-            if (!hit.collider.name.Equals("Stone"))
-                return list;
-            stoneAndTarget = hit.collider.transform.parent;
-            list.Add(stoneAndTarget);
-        }
-        // 足元の石から周囲の石を取得
-        StoneAndTarget[] aroundStones = stoneAndTarget.GetComponent<StoneAndTarget>().GetAroundStoneAndTargetList();
-        // 周囲の石から自分の石をリストに追加、再帰呼び出しでその先も追加していく
-        Transform aroundStoneT;
-        foreach(var aroundStone in aroundStones){
-            if(aroundStone == null || aroundStone.StoneType != this.GetComponent<OthelloPlayer>().StoneType)
-                continue;
-            aroundStoneT = aroundStone.transform;
-            if(!list.Contains(aroundStoneT)){
-                list.Add(aroundStoneT);
-                list = GetFootingStones(aroundStoneT, list);
-            }
-        }
-        return list;
-    }
-
-    /// <summary>
     /// 調査対象リストにあるStoneAndTargetから順位リストの中で一番高いStoneAndTargetを選ぶ
     /// return：true=見つかった、false=無かった
     /// </summary>

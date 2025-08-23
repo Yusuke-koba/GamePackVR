@@ -25,13 +25,14 @@ public class npcai_Kanon : NPCAIBase
         base.Select();
         List<Transform> TargetList = OthelloGameManager.TargetList; //置ける場所
         //おける場所の位置座標を取得
+        //四隅に近い所を優先する(原点から一番離れるほど良い)
+
+        // 下記を使うこと【★ルール：自分から３マス範囲内に投擲】
+        List<Transform> footingStones = GetFootingStones(null, new List<Transform>());
+        foreach(var footingStoneT in footingStones){
+             List<Transform> targetList = footingStoneT.GetComponent<StoneAndTarget>().GetTargetTransformListByRange(3);
+        }
         
-        //四隅に近い所を優先する
-        // →X
-
-        // ★ルール：３マス範囲内のターゲット石リストを取得
-        //List<Transform> targetList = footingStoneT.GetComponent<StoneAndTarget>().GetTargetTransformListByRange(3);
-
         //TODO：投げる先を決めよう！
         _throwTarget = TargetList[0];
         Debug.Log ("★★★"+TargetList[0].transform.name);
