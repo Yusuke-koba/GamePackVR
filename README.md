@@ -19,4 +19,4 @@
 ・meguroSUS
 ・ryotakwmt
 ・sapphimoor
-・hoshino-0197
+・naoya0221x
