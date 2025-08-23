@@ -20,6 +20,8 @@ public class StoneAndTarget : MonoBehaviour
     [SerializeField]
     private BoxCollider _foothold; // ★OthelloPlayerに一任)自身の色の石の場合は足場兼リスポーンエリア、自身の色の石でない場合はキルゾーン
     [SerializeField]
+    private GameObject _impactEffect;
+    [SerializeField]
     private BoxCollider[] _checkColliders;
     [SerializeField]
     private StoneAndTarget[] _aroundStoneAndTargetList = new StoneAndTarget[10]; //まわりの石の情報
@@ -60,11 +62,13 @@ public class StoneAndTarget : MonoBehaviour
                 _stone.SetActive(true);
                 _target.SetActive(false);
                 _stone.transform.localRotation = Quaternion.Euler(new Vector3(WHITE_STONE_X, 0, 0));
+                StartCoroutine(ImpactEvent());
                 break;
             case Type.BlackStone:
                 _stone.SetActive(true);
                 _target.SetActive(false);
                 _stone.transform.localRotation = Quaternion.Euler(new Vector3(BLACK_STONE_X, 0, 0));
+                StartCoroutine(ImpactEvent());
                 break;
             case Type.Target:
                 _stone.SetActive(false);
@@ -186,4 +190,13 @@ public class StoneAndTarget : MonoBehaviour
         return targetList;
     }
 
+    /// <summary>
+    /// エフェクトを再生する
+    /// </summary>
+    private IEnumerator ImpactEvent()
+    {
+        _impactEffect.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        _impactEffect.SetActive(false);
+    }
 }

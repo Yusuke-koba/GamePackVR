@@ -62,7 +62,9 @@ public class OthelloGameManager : MonoBehaviour
         _throwStone.ChangeTurnEvent = () => ChangeTurn();
         _timerUI.ChangeTurnEvent = () => ChangeTurn();
         _player1.GetComponent<NPCAIBase>().Setup();
+        _player1.GetComponent<OthelloPlayer>().ReStart();
         _player2.GetComponent<NPCAIBase>().Setup();
+        _player2.GetComponent<OthelloPlayer>().ReStart();
 
         //INTERVAL_TURN_CHANGE秒経過すると開始する ※スタート演出内でスタート演出分の時間をとる
         _intervalTurnChange = INTERVAL_TURN_CHANGE;

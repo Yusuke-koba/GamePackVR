@@ -119,7 +119,8 @@ public class StartUI : MonoBehaviour
     }
 
     //２体のキャラクターにプレイヤーかNPCAIのコントローラーをセットする
-    private void SetPlayerNPCAI(Transform player,NPCAIType playerNPCAIType){
+    private void SetPlayerNPCAI(Transform player,NPCAIType playerNPCAIType)
+    {
         switch (playerNPCAIType)
         {
             case NPCAIType.Player:
