@@ -31,7 +31,7 @@ public class StartUI : MonoBehaviour
         //TODO：識別用の型を登録しよう！
         Npcai_test,
         Npcai_kobayashiY,
-        
+        Npcai_Kanon,
         //----------------------------------------
     }
 
@@ -54,40 +54,43 @@ public class StartUI : MonoBehaviour
     {
         var obj = new GameObject("NPCAIComponentList");
         obj.transform.parent = transform;
-        _npcAIList = new NPCAIBase[2];
+        _npcAIList = new NPCAIBase[3];
         //TODO：NPC選択用UIに表示されるようにしよう！（１）
-        _npcAIList[0]=(NPCAIBase)obj.AddComponent(typeof(Npcai_test));
-        _npcAIList[1]=(NPCAIBase)obj.AddComponent(typeof(Npcai_kobayashiY));
-        
+        _npcAIList[0] = (NPCAIBase)obj.AddComponent(typeof(Npcai_test));
+        _npcAIList[1] = (NPCAIBase)obj.AddComponent(typeof(Npcai_kobayashiY));
+        _npcAIList[2] = (NPCAIBase)obj.AddComponent(typeof(Npcai_Kanon));
         //----------------------------------------
     }
 
     /// <summary>
     /// UIにボタンをセットする
     /// </summary>
-    public void CreateNPCAISelectButton(Transform playerSelectUI,bool isPlayerA)
+    public void CreateNPCAISelectButton(Transform playerSelectUI, bool isPlayerA)
     {
         GameObject contentGo = playerSelectUI.Find("Viewport/Content").gameObject;
-        if(isPlayerA)
-            CreatePlayerNPCAISelectButton("Player",NPCAIType.None,contentGo,isPlayerA);
+        if (isPlayerA)
+            CreatePlayerNPCAISelectButton("Player", NPCAIType.None, contentGo, isPlayerA);
         //TODO：NPC選択用UIに表示されるようにしよう！（２） 
-        CreatePlayerNPCAISelectButton(_npcAIList[1].Title(),NPCAIType.Npcai_kobayashiY,contentGo,isPlayerA);
+        CreatePlayerNPCAISelectButton(_npcAIList[1].Title(), NPCAIType.Npcai_kobayashiY, contentGo, isPlayerA);
+        CreatePlayerNPCAISelectButton(_npcAIList[2].Title(), NPCAIType.Npcai_Kanon, contentGo, isPlayerA);
 
 
-        CreatePlayerNPCAISelectButton(_npcAIList[0].Title(),NPCAIType.Npcai_test,contentGo,isPlayerA);
+        CreatePlayerNPCAISelectButton(_npcAIList[0].Title(), NPCAIType.Npcai_test, contentGo, isPlayerA);
         //----------------------------------------
         var height = contentGo.transform.childCount * ButtonHeightSelectUI;
         contentGo.GetComponent<RectTransform>().sizeDelta = new Vector2(0, height);
-        if(height >= 1000) height = 1000;
+        if (height >= 1000)
+            height = 1000;
         playerSelectUI.GetComponent<RectTransform>().sizeDelta = new Vector2(playerSelectUI.GetComponent<RectTransform>().sizeDelta.x, height);
     }
 
     /// <summary>
     /// OthelloPlayerのAIを選択する
     /// </summary>
-    public void SetPlayerNPCAITypeButton(string title, NPCAIType playerNPCAIType, bool isPlayerA){
-        Debug.Log ("★★★SetPlayerNPCAITypeButton押下：isPlayerA="+isPlayerA+",NPC="+playerNPCAIType);
-        if(isPlayerA)
+    public void SetPlayerNPCAITypeButton(string title, NPCAIType playerNPCAIType, bool isPlayerA)
+    {
+        Debug.Log("★★★SetPlayerNPCAITypeButton押下：isPlayerA=" + isPlayerA + ",NPC=" + playerNPCAIType);
+        if (isPlayerA)
         {
             _playerANPCAIType = playerNPCAIType;
             _playerASelectButton.SetActive(true);
@@ -108,18 +111,18 @@ public class StartUI : MonoBehaviour
     /// </summary>
     public void GameStart()
     {
-        if(_playerANPCAIType == NPCAIType.None || _playerBNPCAIType == NPCAIType.None )
+        if (_playerANPCAIType == NPCAIType.None || _playerBNPCAIType == NPCAIType.None)
             return;
         //プレイヤーやNPCAIをセットする
-        SetPlayerNPCAI(_playerA,_playerANPCAIType);
-        SetPlayerNPCAI(_playerB,_playerBNPCAIType);
+        SetPlayerNPCAI(_playerA, _playerANPCAIType);
+        SetPlayerNPCAI(_playerB, _playerBNPCAIType);
         //ゲーム開始通知
         OthelloGameManager.GameStart();
         gameObject.SetActive(false);
     }
 
     //２体のキャラクターにプレイヤーかNPCAIのコントローラーをセットする
-    private void SetPlayerNPCAI(Transform player,NPCAIType playerNPCAIType)
+    private void SetPlayerNPCAI(Transform player, NPCAIType playerNPCAIType)
     {
         switch (playerNPCAIType)
         {
@@ -133,7 +136,10 @@ public class StartUI : MonoBehaviour
             case NPCAIType.Npcai_kobayashiY:
                 player.gameObject.AddComponent(typeof(Npcai_kobayashiY));
                 break;
-            //----------------------------------------------------
+            case NPCAIType.Npcai_Kanon:
+                player.gameObject.AddComponent(typeof(Npcai_Kanon));
+                break;
+                //----------------------------------------------------
         }
     }
 
@@ -151,5 +157,5 @@ public class StartUI : MonoBehaviour
         button.onClick.AddListener(() => SetPlayerNPCAITypeButton(name, aiType, isPlayerA));
         return buttonPrefab;
     }
- 
+
 }
