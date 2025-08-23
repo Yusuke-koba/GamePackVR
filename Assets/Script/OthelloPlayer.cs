@@ -9,10 +9,13 @@ public class OthelloPlayer : MonoBehaviour
     [SerializeField]
     private StoneAndTarget.Type _type = StoneAndTarget.Type.None;
     public StoneAndTarget.Type StoneType { get => _type; set => _type = value; }
+    private Vector3 _startingPos;
+    private Quaternion _startingRot;
 
     void Start()
     {
-        // 自身の色をセット
+        _startingPos = transform.position;
+        _startingRot = transform.localRotation;
     }
 
     void OnCollisionEnter(Collision collision)
@@ -36,5 +39,11 @@ public class OthelloPlayer : MonoBehaviour
                 //そこに移動
             }
         }
+    }
+
+    public void ReStart()
+    {
+        transform.position = _startingPos;
+        transform.localRotation = _startingRot;
     }
 }

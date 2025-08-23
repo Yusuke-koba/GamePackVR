@@ -1,6 +1,9 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
+using System.IO;
+using System.Collections;
+using System.Collections.Generic;
 
 public class ResultUI : MonoBehaviour
 {
@@ -31,6 +34,8 @@ public class ResultUI : MonoBehaviour
     [SerializeField]
     private float[] _UISetUpScorePosY_Player2 = new float[]{0,-100,100};//0=DRAW,1=P1WIN,2=P2WIN
     private int _result=0; //0=DRAW,1=P1WIN,2=P2WIN
+    [SerializeField]
+    private GameObject SameAIUI;
 
     public void Start()
     {
@@ -47,11 +52,14 @@ public class ResultUI : MonoBehaviour
             ResultUISet(false,OthelloGameManager.WhiteStoneCount,OthelloGameManager.BlackStoneCount);
         UILayoutSet();
         this.gameObject.SetActive(true);
+        RankingDataSave();
     }
 
     public void Close()
     {
         Debug.Log("★★★ResiltUI Close");
+        Destroy(_player1.GetComponent<NPCAIBase>());
+        Destroy(_player2.GetComponent<NPCAIBase>());
         this.gameObject.SetActive(false);
         _UI_Start.SetActive(true);
     }
@@ -109,6 +117,14 @@ public class ResultUI : MonoBehaviour
 
     public void OpenRanking()
     {
+        //同じAI同士の戦いはランキングに反映無し
+        if(_player1.GetComponent<NPCAIBase>().Title().Equals(_player2.GetComponent<NPCAIBase>().Title()))
+            StartCoroutine(SameAIUIEvent());
+        _RankingUI.Open();
+    }
+
+    public void RankingDataSave()
+    {
         string winNPCName="";
         int winScore=0;
         string loseNPCName="";
@@ -124,6 +140,13 @@ public class ResultUI : MonoBehaviour
             loseNPCName = _player1.GetComponent<NPCAIBase>().Title();
             loseScore = int.Parse(_player1_Score.text);
         }
-        _RankingUI.GameSetOpen(winNPCName, winScore, loseNPCName, loseScore);
+        _RankingUI.GameDataSave(winNPCName, winScore, loseNPCName, loseScore);
+    }
+
+    public IEnumerator SameAIUIEvent()
+    {
+        SameAIUI.SetActive(true);
+        yield return new WaitForSeconds(10);
+        SameAIUI.SetActive(false);
     }
 }

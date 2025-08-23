@@ -29,8 +29,6 @@ public class Ranking : MonoBehaviour
     private GameObject Rank_3;
     [SerializeField]
     private GameObject Rank_Current;
-    [SerializeField]
-    private GameObject SameAIUI;
 
     // void Start(){
     //     //TEST
@@ -40,9 +38,8 @@ public class Ranking : MonoBehaviour
     //     // Open();
     // }
 
-    public void GameSetOpen(string winNPCName,int winScore,string loseNPCName,int loseScore)
+    public void GameDataSave(string winNPCName,int winScore,string loseNPCName,int loseScore)
     {
-        gameObject.SetActive(true);
         string path = Path.Combine(new string[2] { Application.persistentDataPath, "GameRankingLogFile.log" });
         Debug.Log ("Path★★★:::"+path);
         Debug.Log ($"★★★winNPCName={winNPCName},winScore={winScore},loseNPCName={loseNPCName},loseScore={loseScore}");
@@ -81,13 +78,6 @@ public class Ranking : MonoBehaviour
 
     private void RankCalk(ref List<RankItemInfo> rankItemInfos, string winNPCName,int winScore,string loseNPCName,int loseScore)
     {
-        //同じAI同士の戦いはランキングに反映無し
-        if(winNPCName.Equals(loseNPCName))
-        {
-            StartCoroutine(SameAIUIEvent());
-            return;
-        }
-
         bool isWinAdd = false;
         bool isLoseAdd = false;
         //ランク合算
@@ -228,12 +218,5 @@ public class Ranking : MonoBehaviour
         prefab.transform.localScale = new Vector3(1, 1, 1);
         RankItemInfoSet(prefab, rankItemInfo);
         return prefab;
-    }
-
-    private IEnumerator SameAIUIEvent()
-    {
-        SameAIUI.SetActive(true);
-        yield return new WaitForSeconds(10);
-        SameAIUI.SetActive(false);
     }
 }
