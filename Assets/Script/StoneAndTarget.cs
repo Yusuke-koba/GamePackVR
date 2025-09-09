@@ -12,6 +12,8 @@ public class StoneAndTarget : MonoBehaviour
     [SerializeField]
     private Type _type = Type.None;
     [SerializeField]
+    private Type _startStone = Type.None;
+    [SerializeField]
     private Transform _thisTransform;
     [SerializeField]
     private GameObject _stone;
@@ -27,8 +29,8 @@ public class StoneAndTarget : MonoBehaviour
     private StoneAndTarget[] _aroundStoneAndTargetList = new StoneAndTarget[10]; //まわりの石の情報
     [SerializeField]
     private LayerMask _stoneLayerMask;
-    
-    public Transform thisTransform {get => _thisTransform; private set => _thisTransform = value; }
+
+    public Transform thisTransform { get => _thisTransform; private set => _thisTransform = value; }
     public Type StoneType { get => _type; set => _type = value; }
 
     public enum Type
@@ -39,6 +41,12 @@ public class StoneAndTarget : MonoBehaviour
         Target = 3
     }
 
+    private void Start()
+    {
+        if (_isStartStone)
+            _startStone = _type;
+    }
+
     public void Init()
     {
         if (!_isStartStone)
@@ -46,10 +54,16 @@ public class StoneAndTarget : MonoBehaviour
             //最初に表示しておく石以外を非表示にする
             Change(Type.None);
         }
+        else
+        {
+            //起動時に設定されていたタイプに戻す
+            Change(_startStone);
+        }
         thisTransform = transform;
     }
 
-    public StoneAndTarget[] GetAroundStoneAndTargetList(){
+    public StoneAndTarget[] GetAroundStoneAndTargetList()
+    {
         return _aroundStoneAndTargetList;
     }
 
@@ -83,7 +97,7 @@ public class StoneAndTarget : MonoBehaviour
 
     public List<StoneAndTarget> GetImpactList(Type inpactType)
     {
-        if(StoneType != inpactType)
+        if (StoneType != inpactType)
         {
             var addlist = new List<StoneAndTarget>();
             var changeList = new List<StoneAndTarget>();
@@ -103,7 +117,7 @@ public class StoneAndTarget : MonoBehaviour
         return null;
     }
 
-    public List<StoneAndTarget> CheckChain(int impactNo, Type inpactType , List<StoneAndTarget> list)
+    public List<StoneAndTarget> CheckChain(int impactNo, Type inpactType, List<StoneAndTarget> list)
     {
         var stone = _aroundStoneAndTargetList[impactNo];
         //獲得なし
@@ -157,7 +171,7 @@ public class StoneAndTarget : MonoBehaviour
     {
         List<Transform> result = new List<Transform>();
         List<StoneAndTarget> targetList = GetTargetListByRange(range);
-        foreach(var t in targetList)
+        foreach (var t in targetList)
             result.Add(t.transform);
         return result;
     }
@@ -167,22 +181,24 @@ public class StoneAndTarget : MonoBehaviour
     /// </summary>
     public List<StoneAndTarget> GetTargetListByRange(int range)
     {
-        if(range < -1) 
+        if (range < -1)
             range = 1;
 
         // MEMO：コリジョンのスケール＝7.5（１マス）
         // MEMO：コリジョンのスケール＝12.5（２マス）
         // MEMO：コリジョンのスケール＝17.5（３マス）
-        float halfExtent = (2.5f + 5f * range)/2; //OverlapBoxは中心からの長さを指定
+        float halfExtent = (2.5f + 5f * range) / 2; //OverlapBoxは中心からの長さを指定
 
         List<StoneAndTarget> targetList = new List<StoneAndTarget>();
-        Collider[] hitColliders = Physics.OverlapBox(transform.position, new Vector3(halfExtent,1,halfExtent), Quaternion.identity, _stoneLayerMask);
+        Collider[] hitColliders = Physics.OverlapBox(transform.position, new Vector3(halfExtent, 1, halfExtent), Quaternion.identity, _stoneLayerMask);
         int j = 0;
-        while (j < hitColliders.Length){
+        while (j < hitColliders.Length)
+        {
             //ターゲットのGOを取得
-            if (hitColliders[j].name.Equals("Target")){
+            if (hitColliders[j].name.Equals("Target"))
+            {
                 StoneAndTarget stoneAndTarget = hitColliders[j].transform.parent.GetComponent<StoneAndTarget>();
-                if(!targetList.Contains(stoneAndTarget))
+                if (!targetList.Contains(stoneAndTarget))
                     targetList.Add(stoneAndTarget);
             }
             j++;
